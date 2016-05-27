@@ -31,11 +31,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
             enableLogging()
         }
         
-        let cannedDBPath = NSBundle.mainBundle().pathForResource("todo", ofType: "cblite2")
+        let manager = CBLManager.sharedInstance()
         do {
-            try CBLManager.sharedInstance().replaceDatabaseNamed("todo", withDatabaseDir: cannedDBPath!)
+            try database = manager.existingDatabaseNamed("todo")
         } catch let error as NSError {
-            NSLog("Cannot replace the database %@", error)
+            NSLog("Error %@", error)
+        }
+        if database == nil {
+            let cannedDBPath = NSBundle.mainBundle().pathForResource("todo", ofType: "cblite2")
+            do {
+                try CBLManager.sharedInstance().replaceDatabaseNamed("todo", withDatabaseDir: cannedDBPath!)
+            } catch let error as NSError {
+                NSLog("Cannot replace the database %@", error)
+            }
         }
 
         if kLoginFlowEnabled {
