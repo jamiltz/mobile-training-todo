@@ -242,7 +242,7 @@ class TasksViewController: UITableViewController, UISearchResultsUpdating,
         tasksLiveQuery.startKey = [taskList.documentID]
         tasksLiveQuery.endKey = [taskList.documentID]
         tasksLiveQuery.prefixMatchLevel = 1
-        tasksLiveQuery.descending = true
+        tasksLiveQuery.descending = false
         
         tasksLiveQuery.addObserver(self, forKeyPath: "rows", options: .New, context: nil)
         tasksLiveQuery.start()
