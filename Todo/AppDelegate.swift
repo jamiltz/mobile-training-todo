@@ -11,7 +11,7 @@ import UIKit
 let kLoginFlowEnabled = true
 let kEncryptionEnabled = true
 let kSyncEnabled = true
-let kSyncGatewayUrl = NSURL(string: "http://10.17.2.133:4984/todo/")!
+let kSyncGatewayUrl = NSURL(string: "http://localhost:4985/todo/")!
 let kLoggingEnabled = true
 
 @UIApplicationMain
@@ -31,6 +31,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
             enableLogging()
         }
         
+        let cannedDBPath = NSBundle.mainBundle().pathForResource("todo", ofType: "cblite2")
+        do {
+            try CBLManager.sharedInstance().replaceDatabaseNamed("todo", withDatabaseDir: cannedDBPath!)
+        } catch let error as NSError {
+            NSLog("Cannot replace the database %@", error)
+        }
+
         if kLoginFlowEnabled {
             login()
         } else {
