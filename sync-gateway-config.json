@@ -5,8 +5,7 @@
     "todo": {
       "server": "walrus:.",
       "users": {
-        "admin": {"password":"admin", "admin_roles": ["admin"]},
-        "wayne": {"password":"wayne"}
+        "user1": {"password":"p@ss"}
       },
       "sync": `
 function (doc, oldDoc) {
