@@ -12,7 +12,7 @@ let kLoginFlowEnabled = true
 let kEncryptionEnabled = true
 let kSyncEnabled = true
 let kSyncGatewayUrl = NSURL(string: "http://localhost:4984/todo/")!
-let kLoggingEnabled = true
+let kLoggingEnabled = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelegate {
