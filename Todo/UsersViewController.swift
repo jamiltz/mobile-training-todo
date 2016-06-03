@@ -69,8 +69,8 @@ class UsersViewController: UITableViewController, UISearchResultsUpdating {
     override func tableView(tableView: UITableView,
         cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCellWithIdentifier("UserCell") as UITableViewCell!
-            let key = userRows![indexPath.row].key
-            cell.textLabel?.text = key[1] as? String
+            let key = userRows![indexPath.row].key as? [String]
+            cell.textLabel?.text = key![1]
             return cell
     }
     
