@@ -3,7 +3,6 @@
 ## Users
 
 There are three users defined in the config file:
-	- todo
 	- user1
 	- user2
 
