@@ -11,7 +11,7 @@ import UIKit
 let kLoginFlowEnabled = true
 let kEncryptionEnabled = true
 let kSyncEnabled = true
-let kSyncGatewayUrl = NSURL(string: "http://localhost:4985/todo/")!
+let kSyncGatewayUrl = NSURL(string: "http://localhost:4984/todo/")!
 let kLoggingEnabled = true
 
 @UIApplicationMain
@@ -33,14 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
         
         let manager = CBLManager.sharedInstance()
         do {
-            try database = manager.existingDatabaseNamed("todo")
+            try database = manager.existingDatabaseNamed("user1")
         } catch let error as NSError {
             NSLog("Error %@", error)
         }
         if database == nil {
             let cannedDBPath = NSBundle.mainBundle().pathForResource("todo", ofType: "cblite2")
             do {
-                try CBLManager.sharedInstance().replaceDatabaseNamed("todo", withDatabaseDir: cannedDBPath!)
+                try CBLManager.sharedInstance().replaceDatabaseNamed("user1", withDatabaseDir: cannedDBPath!)
             } catch let error as NSError {
                 NSLog("Cannot replace the database %@", error)
             }
@@ -221,17 +221,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
         pusher.continuous = true
         pusher.authenticator = authenticator
         pusher.headers = headers
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:",
-            name: kCBLReplicationChangeNotification, object: pusher)
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:", name: kCBLReplicationChangeNotification, object: pusher)
+        
         puller = database.createPullReplication(kSyncGatewayUrl)
         puller.continuous = true
-        puller.customProperties = ["websocket": false]
         puller.authenticator = authenticator
         puller.headers = headers
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:",
-            name: kCBLReplicationChangeNotification, object: puller)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:", name: kCBLReplicationChangeNotification, object: puller)
 
         pusher.start()
         puller.start()
