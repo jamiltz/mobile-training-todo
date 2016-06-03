@@ -1,13 +1,12 @@
 {
   "interface":":4984",
-  "log": ["*"],
+  "log": ["HTTP", "Auth"],
   "databases": {
     "todo": {
-      "server": "walrus:.",
+      "server": "walrus:",
       "users": {
         "user1": {"password": "pass"},
-        "user2": {"password": "pass"},
-        "todo": {"password": "pass"}
+        "user2": {"password": "pass"}
       },
       "sync": `
 function (doc, oldDoc) {
