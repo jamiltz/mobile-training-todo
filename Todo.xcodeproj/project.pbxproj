@@ -27,7 +27,7 @@
 		93F4B2E21C6985BA005FF4D8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F4B2E11C6985BA005FF4D8 /* SystemConfiguration.framework */; };
 		93F4B2E41C6985C6005FF4D8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F4B2E31C6985C6005FF4D8 /* Security.framework */; };
 		93F4B2E61C6985CD005FF4D8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93F4B2E51C6985CD005FF4D8 /* CFNetwork.framework */; };
-		BED585F31CF8E04200D7C969 /* todo.cblite2 in Resources */ = {isa = PBXBuildFile; fileRef = BED585F21CF8E04200D7C969 /* todo.cblite2 */; };
+		BE2CAA431D01BFB900167EC5 /* todo.cblite2 in Resources */ = {isa = PBXBuildFile; fileRef = BE2CAA421D01BFB900167EC5 /* todo.cblite2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +55,7 @@
 		93F4B2E11C6985BA005FF4D8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		93F4B2E31C6985C6005FF4D8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		93F4B2E51C6985CD005FF4D8 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		BED585F21CF8E04200D7C969 /* todo.cblite2 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = todo.cblite2; path = "../couchbase-mobile-portal/tutorial/canned-db/Downloads/todo.cblite2"; sourceTree = "<group>"; };
+		BE2CAA421D01BFB900167EC5 /* todo.cblite2 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = todo.cblite2; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 		93F4B2B61C6940D6005FF4D8 = {
 			isa = PBXGroup;
 			children = (
-				BED585F21CF8E04200D7C969 /* todo.cblite2 */,
+				BE2CAA421D01BFB900167EC5 /* todo.cblite2 */,
 				93F4B2C11C6940D6005FF4D8 /* Todo */,
 				93F4B2C01C6940D6005FF4D8 /* Products */,
 				93F4B2D41C694257005FF4D8 /* Frameworks */,
@@ -196,10 +196,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE2CAA431D01BFB900167EC5 /* todo.cblite2 in Resources */,
 				93F4B2CD1C6940D6005FF4D8 /* LaunchScreen.storyboard in Resources */,
 				93F4B2CA1C6940D6005FF4D8 /* Assets.xcassets in Resources */,
 				93F4B2C81C6940D6005FF4D8 /* Main.storyboard in Resources */,
-				BED585F31CF8E04200D7C969 /* todo.cblite2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
