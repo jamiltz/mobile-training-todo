@@ -33,14 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
         
         let manager = CBLManager.sharedInstance()
         do {
-            try database = manager.existingDatabaseNamed("user1")
+            try database = manager.existingDatabaseNamed("todo")
         } catch let error as NSError {
             NSLog("Error %@", error)
         }
         if database == nil {
             let cannedDBPath = NSBundle.mainBundle().pathForResource("todo", ofType: "cblite2")
             do {
-                try CBLManager.sharedInstance().replaceDatabaseNamed("user1", withDatabaseDir: cannedDBPath!)
+                try CBLManager.sharedInstance().replaceDatabaseNamed("todo", withDatabaseDir: cannedDBPath!)
             } catch let error as NSError {
                 NSLog("Cannot replace the database %@", error)
             }

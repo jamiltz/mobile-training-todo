@@ -6,7 +6,8 @@
       "server": "walrus:.",
       "users": {
         "user1": {"password": "pass"},
-        "user2": {"password": "pass"}
+        "user2": {"password": "pass"},
+        "todo": {"password": "pass"}
       },
       "sync": `
 function (doc, oldDoc) {
