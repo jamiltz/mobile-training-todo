@@ -78,6 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
             Session.username = username
             startReplication(withUsername: username, andPassword: newPassword ?? password)
             showApp()
+            startConflictLiveQuery()
     }
     
     func openDatabase(username username:String, withKey key:String?,
@@ -96,7 +97,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
             if newKey != nil {
                 try database.changeEncryptionKey(newKey)
             }
-            startConflictLiveQuery()
     }
     
     func closeDatabase() throws {
