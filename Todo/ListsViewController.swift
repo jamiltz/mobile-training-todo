@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskListsViewController: UITableViewController, UISearchResultsUpdating {
+class ListsViewController: UITableViewController, UISearchResultsUpdating {
     var searchController: UISearchController!
     
     var username: String!
