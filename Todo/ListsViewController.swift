@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskListsViewController: UITableViewController, UISearchResultsUpdating {
+class ListsViewController: UITableViewController, UISearchResultsUpdating {
     var searchController: UISearchController!
     
     var username: String!
@@ -41,6 +41,9 @@ class TaskListsViewController: UITableViewController, UISearchResultsUpdating {
         
         // Setup view and query:
         setupViewAndQuery()
+        
+        // Uncomment to create task list conflict
+//        createListConflict()
     }
 
     deinit {
@@ -227,7 +230,7 @@ class TaskListsViewController: UITableViewController, UISearchResultsUpdating {
         tableView.reloadData()
     }
 
-    func createTaskList(name: String) {
+    func createTaskList(name: String) -> CBLSavedRevision? {
         let properties = [
             "type": "task-list",
             "name": name,
@@ -238,14 +241,15 @@ class TaskListsViewController: UITableViewController, UISearchResultsUpdating {
         guard let doc = database.documentWithID(docId) else {
             Ui.showMessageDialog(onController: self, withTitle: "Error",
                 withMessage: "Couldn't save task list")
-            return
+            return nil
         }
 
         do {
-            try doc.putProperties(properties)
+            return try doc.putProperties(properties)
         } catch let error as NSError {
             Ui.showMessageDialog(onController: self, withTitle: "Error",
                 withMessage: "Couldn't save task list", withError: error)
+            return nil
         }
     }
     
@@ -267,6 +271,24 @@ class TaskListsViewController: UITableViewController, UISearchResultsUpdating {
         } catch let error as NSError {
             Ui.showMessageDialog(onController: self, withTitle: "Error",
                 withMessage: "Couldn't delete task list", withError: error)
+        }
+    }
+    
+    // MARK - Create task list conflict (for development only)
+    
+    func createListConflict() {
+        let savedRevision = createTaskList("Test Conflicts List")
+        let newRev1 = savedRevision?.createRevision()
+        let propsRev1 = newRev1?.properties
+        propsRev1?.setValue("Update 1", forKey: "name")
+        let newRev2 = savedRevision?.createRevision()
+        let propsRev2 = newRev2?.properties
+        propsRev2?.setValue("Update 2", forKey: "name")
+        do {
+            try newRev1?.saveAllowingConflict()
+            try newRev2?.saveAllowingConflict()
+        } catch let error as NSError {
+            NSLog("Could not create document %@", error)
         }
     }
 }

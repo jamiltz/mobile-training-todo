@@ -11,8 +11,8 @@ import UIKit
 let kLoginFlowEnabled = true
 let kEncryptionEnabled = true
 let kSyncEnabled = true
-let kSyncGatewayUrl = NSURL(string: "http://10.17.2.133:4984/todo/")!
-let kLoggingEnabled = true
+let kSyncGatewayUrl = NSURL(string: "http://localhost:4984/todo/")!
+let kLoggingEnabled = false
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelegate {
@@ -31,6 +31,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
             enableLogging()
         }
         
+        let manager = CBLManager.sharedInstance()
+        do {
+            try database = manager.existingDatabaseNamed("todo")
+        } catch let error as NSError {
+            NSLog("Error %@", error)
+        }
+        if database == nil {
+            let cannedDBPath = NSBundle.mainBundle().pathForResource("todo", ofType: "cblite2")
+            do {
+                try CBLManager.sharedInstance().replaceDatabaseNamed("todo", withDatabaseDir: cannedDBPath!)
+            } catch let error as NSError {
+                NSLog("Cannot replace the database %@", error)
+            }
+        }
+
         if kLoginFlowEnabled {
             login()
         } else {
@@ -63,6 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
             Session.username = username
             startReplication(withUsername: username, andPassword: newPassword ?? password)
             showApp()
+            startConflictLiveQuery()
     }
     
     func openDatabase(username username:String, withKey key:String?,
@@ -81,7 +97,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
             if newKey != nil {
                 try database.changeEncryptionKey(newKey)
             }
-            startConflictLiveQuery()
     }
     
     func closeDatabase() throws {
@@ -206,17 +221,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, LoginViewControllerDelega
         pusher.continuous = true
         pusher.authenticator = authenticator
         pusher.headers = headers
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:",
-            name: kCBLReplicationChangeNotification, object: pusher)
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:", name: kCBLReplicationChangeNotification, object: pusher)
+        
         puller = database.createPullReplication(kSyncGatewayUrl)
         puller.continuous = true
-        puller.customProperties = ["websocket": false]
         puller.authenticator = authenticator
         puller.headers = headers
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:",
-            name: kCBLReplicationChangeNotification, object: puller)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:", name: kCBLReplicationChangeNotification, object: puller)
 
         pusher.start()
         puller.start()
