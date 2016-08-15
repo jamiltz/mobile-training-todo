@@ -2,7 +2,7 @@
 
 ## Users
 
-There are three users defined in the config file:
+There are two users defined in the config file:
 	- user1
 	- user2
 
